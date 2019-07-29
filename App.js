@@ -7,6 +7,7 @@ import {
 } from "react-native-paper";
 
 import RootNavigator from "@routes";
+import '@components/Calendar'
 
 /**
  * config theme https://callstack.github.io/react-native-paper/theming.html
@@ -23,6 +24,7 @@ const CustomDarkTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
+    primary : Colors.grey50,
     subtitle: Colors.grey50
   }
 };

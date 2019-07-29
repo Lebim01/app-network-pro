@@ -18,7 +18,7 @@ const FragmentContainer = createStackNavigator(
   {
     navigationOptions: ({ navigation }) => ({
       header: (
-        <Appbar.Header>
+        <Appbar.Header dark>
           <Appbar.Action icon="menu" onPress={() => navigation.openDrawer()} />
           <Appbar.Content title="Network PRO" />
         </Appbar.Header>

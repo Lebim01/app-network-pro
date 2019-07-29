@@ -850,7 +850,7 @@
     hoist-non-react-statics "^2.5.0"
     prop-types "^15.6.0"
 
-"@expo/vector-icons@^10.0.1":
+"@expo/vector-icons@^10.0.1", "@expo/vector-icons@^10.0.3":
   version "10.0.3"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.0.3.tgz#9dec25cf6c29871f2bb1fe932029878c221f1f75"
   integrity sha512-3iTdjnBlleddgcRGZV9JQXi+WRL3n2BehW48JOFv/mydx8BjHD0QAcYLOXGuwrcRKR0AIRhHxFQwKVyQ4YcYLA==
@@ -4778,6 +4778,11 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment@^2.22.0, moment@^2.22.1, moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 morgan@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.9.1.tgz#0a8d16734a1d9afbc824b99df87e738e58e2da59"
@@ -5568,6 +5573,15 @@ react-native-button@^2.3.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-calendars@^1.203.0:
+  version "1.203.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.203.0.tgz#6d71cdb15fed4cadc593c735a7f1ceaaf758ea19"
+  integrity sha512-Sq2X2LxILmrLRuYNk3il+vm9RKv0UqWQfoxSjnTSc1iLn0qZaNRoN1OuiCzIssKK1skuNvoywuAe4ZG/l5SGiw==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.5.10"
+    xdate "^0.8.0"
+
 react-native-chart-kit@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/react-native-chart-kit/-/react-native-chart-kit-3.1.0.tgz#3ff46426320865ea2a3aab966c9e0b8e10a54deb"
@@ -5576,6 +5590,20 @@ react-native-chart-kit@^3.1.0:
     lodash "^4.17.11"
     paths-js "^0.4.7"
     point-in-polygon "^1.0.1"
+
+react-native-date-picker@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-2.5.0.tgz#6dc89e9c7fdf61de708fc444594dcc16a20a7070"
+  integrity sha512-l7nzA6J2q45mmBZE2CgsO+YGm8ZaFiAuXdXIxFx/M0J9wWH2Th0RMnBssDx4nbHrk020bl5lzeCZKQHtiS58wA==
+  dependencies:
+    moment "^2.22.1"
+
+react-native-datepicker@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/react-native-datepicker/-/react-native-datepicker-1.7.2.tgz#58d0822591a0ac9b32aba082650222a0ee29669d"
+  integrity sha1-WNCCJZGgrJsyq6CCZQIioO4pZp0=
+  dependencies:
+    moment "^2.22.0"
 
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
@@ -7115,6 +7143,11 @@ xcode@^2.0.0:
   dependencies:
     simple-plist "^1.0.0"
     uuid "^3.3.2"
+
+xdate@^0.8.0:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/xdate/-/xdate-0.8.2.tgz#d7b033c00485d02695baf0044f4eacda3fc961a3"
+  integrity sha1-17AzwASF0CaVuvAET06s2j/JYaM=
 
 xmlbuilder@^9.0.7:
   version "9.0.7"

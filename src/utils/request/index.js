@@ -1,6 +1,5 @@
 import getDataFromURL from './getDataFromURL'
-
-const baseUrl = `http://localhost/phrapi/`
+import baseUrl from './baseurl'
 
 export {
     baseUrl,

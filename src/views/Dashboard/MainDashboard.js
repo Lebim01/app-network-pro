@@ -5,7 +5,7 @@ import { withTheme } from "react-native-paper";
 import { menuDrawer } from '@src/navigationOptions'
 import { getDataFromURL } from '@utils/request'
 
-import { CardWithTabs } from "@components";
+import { CardWithTabs, FraseDia } from "@components";
 import { LineChart } from "@components/Chart";
 
 
@@ -16,7 +16,7 @@ class MainDashboard extends React.Component {
         dataDiario : {}
     }
 
-    componentDidMount(){
+    componentDidMount(){    
         this.getData()
     }
 
@@ -37,6 +37,7 @@ class MainDashboard extends React.Component {
 
         return (
             <ScrollView style={styles.container(theme)}>
+                <FraseDia />
                 <CardWithTabs
                     theme={theme} 
                     title={"Cantidad de citas"}

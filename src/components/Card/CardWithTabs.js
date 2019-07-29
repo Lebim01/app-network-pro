@@ -4,7 +4,8 @@ import * as React from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 
-import { XSCard, Tabs } from "@components";
+import XSCard from "@components/XSCard";
+import Tabs from "@components/Tabs/Tabs";
 
 class CardWithTabs extends React.Component {
 
