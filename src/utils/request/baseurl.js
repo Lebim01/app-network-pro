@@ -1,4 +1,4 @@
-const baseUrl = `http://localhost/phrapi/`
+const baseUrl = `http://api-networkpro.teknovatemzt.com/phrapi`
 
 export { baseUrl }
 

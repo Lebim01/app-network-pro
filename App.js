@@ -5,9 +5,13 @@ import {
   DarkTheme,
   Colors
 } from "react-native-paper";
+import axios from 'axios'
+import { baseUrl } from '@utils/request'
 
 import RootNavigator from "@routes";
 import '@components/Calendar'
+
+axios.defaults.baseURL = baseUrl;
 
 /**
  * config theme https://callstack.github.io/react-native-paper/theming.html

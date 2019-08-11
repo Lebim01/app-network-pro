@@ -34,17 +34,6 @@ class DrawerItems extends React.Component {
             />
           ))}
         </Drawer.Section>
-
-        <Drawer.Section title="Preferences">
-          <TouchableRipple onPress={this.props.toggleTheme}>
-            <View style={styles.preference}>
-              <Text>Dark Theme</Text>
-              <View pointerEvents="none">
-                <Switch value={this.props.isDarkTheme} />
-              </View>
-            </View>
-          </TouchableRipple>
-        </Drawer.Section>
       </View>
     );
   }

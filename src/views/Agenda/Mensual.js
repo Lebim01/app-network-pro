@@ -1,7 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
+import { Text as TextE } from 'react-native-elements'
 import { Agenda } from 'react-native-calendars'
+import { FAB, withTheme  } from 'react-native-paper'
+import moment from 'moment'
+import axios from 'axios'
 
+const today = moment().format('YYYY-MM-DD')
 const styles = StyleSheet.create({
     container : {
         flex: 1
@@ -18,33 +23,50 @@ const styles = StyleSheet.create({
         height: 15,
         flex:1,
         paddingTop: 30
+    },
+    subtitle : {
+        color: '#aaa'
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
     }
 })
-
-const items = {
-    '2019-07-22': [{text: 'item 1 - any js object'}],
-    '2019-07-23': [{text: 'item 2 - any js object'}],
-    '2019-07-24': [],
-    '2019-07-25': [{text: 'item 3 - any js object'},{text: 'any js object'}]
-}
-const markeds = {}
-for(let key in items){
-    markeds[key] = {marked : true}
+const emptyDate =  {
+    [today]: { 
+        fecha : today,
+        titulo : 'Sin eventos' ,
+        hora_inicio : '',
+        hora_fin : '',
+        descripcion : '',
+        ubicacion : ''
+    } 
 }
 
 class Mensual extends React.Component {
 
+    state = {
+        items: emptyDate,
+        markeds : {},
+        selected : today
+    }
+
     renderItem(item) {
         return (
-            <View style={[styles.item, {height: item.height}]}><Text>{item.text}</Text></View>
+            <View style={[styles.item, {height: item.height}]}>
+                <Text>{moment(`${item.fecha} ${item.hora_inicio}`).format('h:mm A')} - {moment(`${item.fecha} ${item.hora_fin}`).format('h:mm A')}</Text>
+                <TextE h4>{item.titulo}</TextE>
+                <Text style={styles.subtitle}>{item.ubicacion}</Text>
+                <Text style={styles.subtitle}>{item.descripcion}</Text>
+            </View>
         );
     }
     
     renderEmptyDate() {
         return (
-            <View style={styles.emptyDate}>
-                <Text>This is empty date!</Text>
-            </View>
+            <View style={styles.emptyDate}></View>
         );
     }
 
@@ -52,7 +74,42 @@ class Mensual extends React.Component {
         return r1.text !== r2.text;
     }
 
+    addEvent(){
+        this.props.navigation.navigate('evento')
+    }
+
+    async getEvents(){
+        const { data } = await axios.post(`/evento/get`)
+
+        let items = data
+        if(!items[today]){
+            items = {
+                ...items,
+                ...emptyDate
+            }
+        }
+        const { markeds, selected } = this.getMarkedsDays(items)
+        this.setState({
+            items, markeds, selected
+        })
+    }
+
+    getMarkedsDays(events){
+        let markeds = {}
+        let selected = null
+        for(let key in events){
+            markeds[key] = {marked : true}
+            if(selected == null || moment(key).isAfter(moment(selected))) selected = key
+        }
+        return { markeds, selected }
+    }
+
+    componentDidMount(){
+        this.getEvents()
+    }
+
     render(){
+        const { items, markeds, selected } = this.state
         return (
             <View style={styles.container}>
                 <Agenda
@@ -62,10 +119,19 @@ class Mensual extends React.Component {
                     rowHasChanged={this.rowHasChanged.bind(this)}
                     markedDates={markeds}
                     style={styles.container}
+                    selected={selected}
+                />
+                <FAB
+                    icon="add"
+                    onPress={this.addEvent.bind(this)}
+                    style={{
+                        ...styles.fab,
+                        backgroundColor : this.props.theme.colors.primary
+                    }}
                 />
             </View>
         )
     }
 }
 
-export default Mensual
+export default withTheme(Mensual)
