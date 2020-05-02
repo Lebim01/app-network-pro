@@ -21,19 +21,19 @@ export default class LoginScreen extends Component {
   }
 
   async login(token){
-    await SecureStore.setItemAsync("token", token)
-    axios.defaults.headers.common['token'] = token
+    //await SecureStore.setItemAsync("token", token)
+    //axios.defaults.headers.common['token'] = token
     this.props.navigation.navigate('Main')
   }
 
   async componentDidMount(){
-    let token = await SecureStore.getItemAsync('token')
+    /*let token = await SecureStore.getItemAsync('token')
     if(token){
       const { data } = await axios.post('/access/authenticate', { token })
       if(data.status === 200){
         this.login(token)
       }
-    }
+    }*/
   }
 
   render() {

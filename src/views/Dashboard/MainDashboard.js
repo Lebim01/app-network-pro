@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView } from "react-native";
+import { ScrollView, View, Text } from "react-native";
 import { withTheme } from "react-native-paper";
 
 import { menuDrawer } from '@src/navigationOptions'
@@ -17,7 +17,7 @@ class MainDashboard extends React.Component {
     }
 
     componentDidMount(){    
-        this.getData()
+        //this.getData()
     }
 
     async getData(){
@@ -47,12 +47,33 @@ class MainDashboard extends React.Component {
                             title: 'Diario',
                             content : (
                                 <LineChart 
-                                    data={dataDiario}
+                                    //data={dataDiario}
+                                    data={{
+                                        labels: ["10:00 AM", "12:00 PM", "2:00 PM", "4:00 PM"],
+                                        datasets: [
+                                            {
+                                                data: [
+                                                    Math.random() * 1000,
+                                                    Math.random() * 1000,
+                                                    Math.random() * 1000,
+                                                    Math.random() * 1000,
+                                                    Math.random() * 1000,
+                                                    Math.random() * 1000
+                                                ]
+                                            }
+                                        ]
+                                    }}
                                 />
                             )
                         },
                         {
-                            title: 'Mensual'
+                            title: 'Mensual',
+                            content : (
+                                <View>
+                                    <Text>dfhjadsjka</Text>
+                                    
+                                </View>
+                            )
                         },
                         {
                             title: 'Anual'
