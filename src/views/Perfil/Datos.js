@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text } from 'react-native'
 import { withTheme } from "react-native-paper";
 import { Input, Button } from 'react-native-elements'
 import Card from '@components/Card/Card'
+import LoadingView from '@components/Animated/LoadingView'
+import RequestFailedView from '@components/Animated/RequestFailedView'
 import { Br, BaseView } from '@components'
 import DatePicker from 'react-native-datepicker'
-import moment from 'moment'
-import axios from 'axios'
-import Toast from 'react-native-easy-toast'
+import lang from '@lang'
+
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
+
+const query = {
+    getProfile: gql`{
+        user {
+            name
+        }
+    }`
+}
 
 const styles = {
     label : {
@@ -17,83 +28,51 @@ const styles = {
     }
 }
 
-class Datos extends React.Component {
+const Datos = (props) => {
+    const { loading, error, data } = useQuery(query.getProfile);
+    const [state, setState] = useState({})
 
-    state = {
-        fecha_nacimiento: moment().format('YYYY-MM-DD'),
-        nombres : '',
-        apellido_paterno : '',
-        apellido_materno : '',
-        mi_porque : '',
-        loading : false
+    if(loading) return <LoadingView />
+
+    if (error) return <RequestFailedView />
+
+    const { user: profile } = data
+
+    const save = () => {
+
     }
 
-    componentDidMount(){
-        this.load()
-    }
-
-    async load(){
-        const { data } = await axios.post('/perfil/get')
-        this.setState({
-            ...data
+    const onChangeText = name => value => {
+        setState({
+            ...state,
+            [name]: value
         })
     }
 
-    async save(){
-        const { nombres, apellido_materno, apellido_paterno, fecha_nacimiento, mi_porque } = this.state
-        this.setState({
-            loading : true
-        })
-        const { data } = await axios.post('/perfil/post', { 
-            nombres,
-            apellido_paterno,
-            apellido_materno,
-            fecha_nacimiento,
-            mi_porque
-        })
-
-        if(data.status === 200){
-            this.refs.toast.show('Guardado');
-        }else{
-            this.refs.toast.show('Fallo al guardar');
-        }
-
-        this.setState({
-            loading : false
-        })
-    }
-
-    onChangeText = name => (text) => {
-        this.setState({
-            [name] : text
-        })
-    }
-
-    render(){
-        return (
-            <BaseView {...this.props}>
-                <Card title="Perfil" actions={<Button title="Guardar" onPress={this.save.bind(this)} loading={this.state.loading} />}>
+    return (
+        <BaseView>
+            <Card title="Perfil" actions={<Button title={lang.Save} onPress={save} loading={loading} />}>
+                {profile &&
                     <View>
-                        <Input labelStyle={styles.label} label="Nombre" shake={true} value={this.state.nombres} onChangeText={this.onChangeText('nombres')} />
+                        <Input labelStyle={styles.label} label={lang.Name} shake={true} value={profile.name} onChangeText={onChangeText('name')} />
                         <Br/>
-                        <Input labelStyle={styles.label} label="Apellido Paterno" shake={true} value={this.state.apellido_paterno} onChangeText={this.onChangeText('apellido_paterno')} />
+                        <Input labelStyle={styles.label} label={lang.LastName} shake={true} value={profile.last_name} onChangeText={onChangeText('last_name')} />
                         <Br/>
-                        <Input labelStyle={styles.label} label="Apellido Materno" shake={true} value={this.state.apellido_materno} onChangeText={this.onChangeText('apellido_materno')} />
-                        <Br/>
-                        <Text style={{ ...styles.label, paddingLeft: 10 }}>Fecha de nacimiento</Text>
+                        <Text style={{ ...styles.label, paddingLeft: 10 }}>{lang.Birthday}</Text>
                         <DatePicker
                             style={{ width: '100%' }}
-                            date={this.state.fecha_nacimiento}
-                            onDateChange={date => this.setState({ fecha_nacimiento: date })}
+                            date={profile.birthday}
+                            onDateChange={date => setState({ ...state, birthday: date })}
+                            confirmBtnText={lang.Confirm}
+                            cancelBtnText={lang.Cancel}
                         />
                         <Br/>
-                        <Input labelStyle={styles.label} label="Escribe tu PORQUE" numberOfLines={2} multiline={true} value={this.state.mi_porque} onChangeText={this.onChangeText('mi_porque')} />
+                        <Input labelStyle={styles.label} label={lang.Why} numberOfLines={2} multiline={true} value={profile.why} onChangeText={onChangeText('why')} />
                     </View>
-                </Card>
-                <Toast ref="toast" position="top"/>
-            </BaseView>
-        )
-    }
+                }
+            </Card>
+        </BaseView>
+    )
 }
 
 export default withTheme(Datos)

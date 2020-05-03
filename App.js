@@ -5,13 +5,16 @@ import {
   DarkTheme,
   Colors
 } from "react-native-paper";
-import axios from 'axios'
-import { baseUrl } from '@utils/request'
+
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
 
 import RootNavigator from "@routes";
 import '@components/Calendar'
 
-axios.defaults.baseURL = baseUrl;
+const client = new ApolloClient({
+  uri: 'http://datatecblocks.xyz:4001/graphql'
+});
 
 /**
  * config theme https://callstack.github.io/react-native-paper/theming.html
@@ -43,12 +46,14 @@ export default class ReactXS extends React.Component {
 
   render() {
     return (
-      <PaperProvider theme={this.state.theme}>
-        <RootNavigator
-          toggleTheme={this._toggleTheme}
-          isDarkTheme={this.state.theme === CustomDarkTheme}
-        />
-      </PaperProvider>
+      <ApolloProvider client={client}>
+        <PaperProvider theme={this.state.theme}>
+          <RootNavigator
+            toggleTheme={this._toggleTheme}
+            isDarkTheme={this.state.theme === CustomDarkTheme}
+          />
+        </PaperProvider>
+      </ApolloProvider>
     );
   }
 }
