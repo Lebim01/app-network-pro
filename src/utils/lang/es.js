@@ -12,5 +12,7 @@ export default {
     LastName: "Apellidos",
     Phone: "Teléfono",
     PhoneCode: "Lada",
-    Birthday: "Fecha de nacimiento"
+    Birthday: "Fecha de nacimiento",
+    WriteWhy: "Escribe tu ¿Porqué?",
+    Email: "Correo"
 }
