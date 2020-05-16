@@ -7,7 +7,7 @@ import { getDataFromURL } from '@utils/request'
 
 import { CardWithTabs, FraseDia } from "@components";
 import { LineChart } from "@components/Chart";
-
+import WizardStartApp from '@views/WizardStartApp'
 
 class MainDashboard extends React.Component {
 
@@ -34,6 +34,8 @@ class MainDashboard extends React.Component {
     render(){
         const { theme } = this.props
         const { dataDiario } = this.state
+
+        return <WizardStartApp />
 
         return (
             <ScrollView style={styles.container(theme)}>
